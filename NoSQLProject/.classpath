@@ -7,6 +7,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/yassine/Desktop/NoSQL/workspaceNoSQL/antlr-4.9.1-complete.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yassine/Desktop/NoSQL/workspaceNoSQL/NoSQLProject/antlrjar/antlr-4.9.1-complete.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -85,7 +85,6 @@ INT : '-'? NUMERIC+;
 
 WHITESPACE : (' ' | '\t' | '\n' | '\r') -> skip;
 
-EOF : EOF;
 
 
 
