@@ -1,3 +1,0 @@
-foreach a in Personne create_tuple
-select_if a.nom == "arnaudlechien"
-output a
