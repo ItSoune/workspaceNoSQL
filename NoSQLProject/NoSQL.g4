@@ -3,8 +3,8 @@ grammar NoSQL;
 //compilationUnit : ( variable | output ) EOF; //root rule - globally code consist only of variables and prints (see definition below)
 //expression : listit CREATE_TUPLE block output group+ order+ export+ EOF; // real
 //listattr : attribute | attribute listattr;
-start: expression*;
-expression : listit CREATE_TUPLE block output EOF;
+start: expression* EOF;
+expression : listit CREATE_TUPLE block output ;
 variable : SQL_WORD;
 relation : SQL_WORD;
 attribute: SQL_WORD
@@ -74,10 +74,7 @@ fragment NUMERIC: '0'..'9';
 fragment LETTER: ('a'..'z' | 'A'..'Z');
 fragment CHAR: . ;
 
-
 SQL_WORD : LETTER (LETTER | '_' | NUMERIC)*;
-
-
 
 OPERATOR : '==' | '<' | '>' | '<=' | '>=' | '!=';
 
@@ -86,10 +83,9 @@ FLOAT : '-'? NUMERIC+ '.' NUMERIC+;
 
 INT : '-'? NUMERIC+;
 
-
-
 WHITESPACE : (' ' | '\t' | '\n' | '\r') -> skip;
 
+EOF : EOF;
 
 
 

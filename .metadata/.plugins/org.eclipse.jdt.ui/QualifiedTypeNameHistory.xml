@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Queue"/>
-    <fullyQualifiedTypeName name="org.stringtemplate.v4.compiler.Bytecode.Instruction"/>
-    <fullyQualifiedTypeName name="java.util.ArrayDeque"/>
-    <fullyQualifiedTypeName name="org.antlr.v4.runtime.tree.TerminalNode"/>
-    <fullyQualifiedTypeName name="org.antlr.v4.runtime.misc.NotNull"/>
-</qualifiedTypeNameHistroy>
