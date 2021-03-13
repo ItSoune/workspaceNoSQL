@@ -1,0 +1,180 @@
+// Generated from Hello.g4 by ANTLR 4.4
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+
+/**
+ * This interface defines a complete listener for a parse tree produced by
+ * {@link HelloParser}.
+ */
+public interface HelloListener extends ParseTreeListener {
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#listit}.
+	 * @param ctx the parse tree
+	 */
+	void enterListit(@NotNull HelloParser.ListitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#listit}.
+	 * @param ctx the parse tree
+	 */
+	void exitListit(@NotNull HelloParser.ListitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(@NotNull HelloParser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(@NotNull HelloParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#data}.
+	 * @param ctx the parse tree
+	 */
+	void enterData(@NotNull HelloParser.DataContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#data}.
+	 * @param ctx the parse tree
+	 */
+	void exitData(@NotNull HelloParser.DataContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#listexcl}.
+	 * @param ctx the parse tree
+	 */
+	void enterListexcl(@NotNull HelloParser.ListexclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#listexcl}.
+	 * @param ctx the parse tree
+	 */
+	void exitListexcl(@NotNull HelloParser.ListexclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void enterStart(@NotNull HelloParser.StartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void exitStart(@NotNull HelloParser.StartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#exclusion}.
+	 * @param ctx the parse tree
+	 */
+	void enterExclusion(@NotNull HelloParser.ExclusionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#exclusion}.
+	 * @param ctx the parse tree
+	 */
+	void exitExclusion(@NotNull HelloParser.ExclusionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#logical}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogical(@NotNull HelloParser.LogicalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#logical}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogical(@NotNull HelloParser.LogicalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelation(@NotNull HelloParser.RelationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelation(@NotNull HelloParser.RelationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#output}.
+	 * @param ctx the parse tree
+	 */
+	void enterOutput(@NotNull HelloParser.OutputContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#output}.
+	 * @param ctx the parse tree
+	 */
+	void exitOutput(@NotNull HelloParser.OutputContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(@NotNull HelloParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(@NotNull HelloParser.ConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#listattr}.
+	 * @param ctx the parse tree
+	 */
+	void enterListattr(@NotNull HelloParser.ListattrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#listattr}.
+	 * @param ctx the parse tree
+	 */
+	void exitListattr(@NotNull HelloParser.ListattrContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#selection}.
+	 * @param ctx the parse tree
+	 */
+	void enterSelection(@NotNull HelloParser.SelectionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#selection}.
+	 * @param ctx the parse tree
+	 */
+	void exitSelection(@NotNull HelloParser.SelectionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#comparaison}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparaison(@NotNull HelloParser.ComparaisonContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#comparaison}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparaison(@NotNull HelloParser.ComparaisonContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariable(@NotNull HelloParser.VariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariable(@NotNull HelloParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#iteration}.
+	 * @param ctx the parse tree
+	 */
+	void enterIteration(@NotNull HelloParser.IterationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#iteration}.
+	 * @param ctx the parse tree
+	 */
+	void exitIteration(@NotNull HelloParser.IterationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(@NotNull HelloParser.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(@NotNull HelloParser.BlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HelloParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttribute(@NotNull HelloParser.AttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HelloParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttribute(@NotNull HelloParser.AttributeContext ctx);
+}
