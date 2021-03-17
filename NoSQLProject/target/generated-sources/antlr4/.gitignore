@@ -4,3 +4,5 @@
 /NoSQLLexer.tokens
 /NoSQLListener.java
 /NoSQLParser.java
+/NoSQLParcoursArbreListener.java
+/nosql
