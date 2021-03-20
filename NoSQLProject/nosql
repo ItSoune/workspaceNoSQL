@@ -1,4 +1,4 @@
-foreach a in Personne 
+foreach a in Joker 
 foreach b in Chien create_tuple
 select_if a.nom == "arnaudlechien"
 output a

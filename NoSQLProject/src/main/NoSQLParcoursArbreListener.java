@@ -14,10 +14,10 @@ import generated.NoSQLParser.IterationContext;
 
 public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
-    ArrayList<String> sqlFragements = new ArrayList<String>();
+    Map<String, String> sqlFragements = new HashMap<String, String>();
     //Map<String, Variable> variables = new HashMap<>();
 
-    public ArrayList<String> getInstructionsQueue() {
+    public Map<String, String> getInstructions() {
         return sqlFragements;
     }
 	public void enterExpression(NoSQLParser.ExpressionContext ctx) {
@@ -25,17 +25,18 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	}
 
 	public void enterListit (NoSQLParser.ListitContext ctx) {
-		System.out.println(ctx.iteration(0));
+		System.out.println("Entering ListIt");
 	}
 	
 	@Override 
 	public void exitListit(@NotNull NoSQLParser.ListitContext ctx) {
-		ctx.iteration(0).hashCode();
+		
+		/*System.out.println(ctx.iteration(0).hashCode());
 		System.out.println(ctx.iteration(0));
 		System.out.println(ctx.iteration(1).getStart());
 		System.out.println(ctx.iteration(1).getStop());
 		System.out.println(ctx.iteration(1).getRuleIndex());
-		System.out.println(ctx.iteration(1).depth());
+		System.out.println(ctx.iteration(1).depth());*/
 		String str = new String("FROM");
 		
 		int i = 0;
@@ -47,7 +48,46 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		str = str.substring(0, str.length()-1);
 		System.out.println(str);
 		
-		sqlFragements.add(str);
+		sqlFragements.put("FROM", str);
+		System.out.println("Exiting ListIt");
+	}
+	
+	@Override 
+	public void enterIteration(@NotNull NoSQLParser.IterationContext ctx) {
+		System.out.println("Entering Iter");
+		//System.out.println(ctx.hashCode());
+		
+	}
+	
+	@Override 
+	public void exitIteration(@NotNull NoSQLParser.IterationContext ctx) {
+		
+		//System.out.println(ctx.hashCode());
+		System.out.println("Exiting Iter");
+	}
+	
+	@Override 
+	public void enterVariable(@NotNull NoSQLParser.VariableContext ctx) {
+		System.out.println("Entering Var");
+		
+	}
+	
+	@Override 
+	public void exitVariable(@NotNull NoSQLParser.VariableContext ctx) {
+		System.out.println(ctx.SQL_WORD());
+		System.out.println("Exiting Var");
+	}
+	
+	@Override 
+	public void enterRelation(@NotNull NoSQLParser.RelationContext ctx) {
+		System.out.println("Entering Rel");
+		
+	}
+	
+	@Override 
+	public void exitRelation(@NotNull NoSQLParser.RelationContext ctx) {
+		System.out.println(ctx.SQL_WORD());
+		System.out.println("Exiting Rel");
 	}
 	
 }
