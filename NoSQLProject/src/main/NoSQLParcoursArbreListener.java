@@ -50,8 +50,4 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		sqlFragements.add(str);
 	}
 	
-	@Override 
-	public void exitIteration(@NotNull NoSQLParser.ListitContext ctx) {
-		
-	}
 }
