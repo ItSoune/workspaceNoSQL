@@ -1,5 +1,5 @@
-package generated;
 // Generated from NoSQL.g4 by ANTLR 4.4
+package generated;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
