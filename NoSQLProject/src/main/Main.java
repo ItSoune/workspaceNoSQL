@@ -17,6 +17,7 @@ import generated.NoSQLLexer;
 import generated.NoSQLParser;
 
 
+
 public class Main {
 
 	public static void main(String[] args) {

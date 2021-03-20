@@ -1,12 +1,8 @@
 package main;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 import org.antlr.v4.runtime.misc.NotNull;
-import org.stringtemplate.v4.compiler.Bytecode.Instruction;
 
 import generated.NoSQLBaseListener;
 import generated.NoSQLParser;
