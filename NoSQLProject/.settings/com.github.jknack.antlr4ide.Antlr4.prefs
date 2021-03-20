@@ -1,5 +1,8 @@
-antlr4.antlrRegisteredTools=4.4@C\:\\Users\\yassine\\AppData\\Local\\Temp\\antlr-4.4-complete.jar\:4.9.1@C\:\\Users\\yassine\\Desktop\\NoSQL\\workspaceNoSQL\\noSQLAnrnaud\\antlr-4.9.1-complete.jar
-antlr4.antlrToolPath=C\:\\Users\\yassine\\Desktop\\NoSQL\\workspaceNoSQL\\noSQLAnrnaud\\antlr-4.9.1-complete.jar
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'main' of https\://github.com/ItSoune/workspaceNoSQL.git
+antlr4.antlrRegisteredTools=4.4@C\:\\Users\\yassine\\AppData\\Local\\Temp\\antlr-4.4-complete.jar\:4.4@C\:\\Users\\yassine\\Documents\\antlr-4.4-complete.jar
+antlr4.antlrToolPath=C\:\\Users\\yassine\\Documents\\antlr-4.4-complete.jar
 antlr4.encoding=UTF-8
 antlr4.listener=true
 antlr4.visitor=false
