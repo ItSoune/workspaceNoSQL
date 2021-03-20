@@ -4,7 +4,7 @@ grammar NoSQL;
 //expression : listit CREATE_TUPLE block output group+ order+ export+ EOF; // real
 //listattr : attribute | attribute listattr;
 start: expression* EOF;
-expression : listit CREATE_TUPLE block output ;
+expression : listit block output ;
 variable : SQL_WORD;
 relation : SQL_WORD;
 attribute: SQL_WORD
@@ -12,7 +12,7 @@ attribute: SQL_WORD
 listattr : (attribute COMMA)* attribute;
 
 iteration : FOREACH variable IN relation;
-listit : iteration+;
+listit : iteration+ CREATE_TUPLE;
 
 block : selection listexcl?
       | listexcl;
