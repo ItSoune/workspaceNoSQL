@@ -1,1 +1,1 @@
-FROM Joker a, Chien b
+SELECT a FROM Joker a, Chien b

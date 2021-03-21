@@ -26,7 +26,7 @@ condition : logical
 logical : comparaison;
 data: INT | FLOAT | STRING ;
 comparaison: attribute OPERATOR data | attribute OPERATOR attribute | data OPERATOR attribute; 
-output : OUTPUT (listattr | variable);
+output : OUTPUT (variable | listattr);
 
 /*
 

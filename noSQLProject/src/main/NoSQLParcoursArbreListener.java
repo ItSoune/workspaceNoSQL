@@ -86,4 +86,26 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		System.out.println("Exiting Rel");
 	}
 	
+	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
+		
+		
+		
+	}
+
+	@Override public void exitOutput(@NotNull NoSQLParser.OutputContext ctx) { 
+		String str = new String("SELECT ");
+		
+		if (ctx.variable() != null) {
+			str += ctx.variable().getText() + " ";
+		}
+		
+		System.out.println(str);
+//		System.out.println(ctx.getChild(0));
+//		System.out.println(ctx.getChild(1).getText());
+//		System.out.println(ctx.variable().getText());
+//		System.out.println(ctx.listattr());
+		
+		sqlFragements.put("SELECT", str);
+	}
+	
 }
