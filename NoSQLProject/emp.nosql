@@ -1,0 +1,3 @@
+foreach e in emp create_tuple 
+select_if e.chien == "chien" 
+output a
