@@ -36,7 +36,6 @@ listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
 listagrega : attribute AS attribute | attribute AS attribute listmatch; 
 */
 
-
 group : PER listattr;
 order : ORDER_BY listattr (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN attribute));
 export : INTO_TABLE relation;
