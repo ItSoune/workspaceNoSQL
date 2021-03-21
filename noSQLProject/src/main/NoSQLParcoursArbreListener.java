@@ -98,7 +98,11 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 			str += ctx.variable().getText() + " ";
 		}
 		
-		System.out.println(str);
+		if (ctx.listattr() != null) {
+			str += ctx.listattr().getText() + " ";
+		}
+		
+//		System.out.println(str);
 //		System.out.println(ctx.getChild(0));
 //		System.out.println(ctx.getChild(1).getText());
 //		System.out.println(ctx.variable().getText());
