@@ -41,9 +41,15 @@ public class Main {
     		str_return += map.get("SELECT");
     	if (s.contains("FROM"))
     		str_return += map.get("FROM");
+    	if (s.contains("WHERE"))
+    		str_return += map.get("WHERE");
+    	printToFile(str_return);
+	}
+	
+	
+	
+	private static void printToFile(String s) {
     	File file = null;
-    	
-    	
     	try {
 			file = new File("results.sql");
 	        if (file.createNewFile()) {
@@ -53,12 +59,13 @@ public class Main {
 	          System.out.println("File already exists.");
 	        }
 	        FileWriter myWriter = new FileWriter(file);
-	        myWriter.write(str_return);
+	        myWriter.write(s);
 	        myWriter.close();
 	        System.out.println("Successfully wrote to the file.");
     	} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
+
 	}
 }
