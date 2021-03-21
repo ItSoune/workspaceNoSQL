@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 
 import generated.NoSQLBaseListener;
 import generated.NoSQLParser;
+import generated.NoSQLParser.ComparaisonContext;
 import generated.NoSQLParser.IterationContext;
 
 public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
@@ -90,15 +91,42 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
     }
 
-    @Override 
+	@Override 
     public void exitSelection(@NotNull NoSQLParser.SelectionContext ctx) {
 
-        //System.out.println("coucou              " + ctx.SELECT_IF().getParent().getChild(1).getText());
-        System.out.println("hellooo" );
-        String string = new String();
-        string += ctx.condition().logical(0).comparaison().data().STRING();
-        string = "'" + string.substring(1, string.length()-1) + "'";
-        System.out.println(string);
+        //System.out.println("coucou " + ctx.SELECT_IF().getParent().getChild(1).getText());
+        //System.out.println("hellooo" );
+
+
+        String colonne = new String();
+        String operator = new String();
+        String data = new String();
+        String resultat = new String(); // requête traduite en sql
+
+
+        ComparaisonContext comparaison  = ctx.condition().logical(0).comparaison(); // on avance dans l'arbre
+
+
+        System.out.println("------------------" + comparaison.attribute(2));
+        if(comparaison.data()!=null) {
+            System.out.println("yoyo");
+        }
+        else {
+            System.out.println(comparaison.attribute());
+        }
+        /*
+        colonne += comparaison.attribute().get(0).SQL_WORD();
+
+        operator += comparaison.OPERATOR();
+
+        data += comparaison.data().STRING();
+        data = "'" + data.substring(1, data.length()-1) + "'"; // pour enlever les guillemets et mettre des apostrophes
+        System.out.println(data);
+
+        resultat = "WHERE" +" "+ colonne +" "+ operator +" "+ data;
+
+        System.out.println("---resultat--- "+resultat);
+        */
     }
 	
 	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
