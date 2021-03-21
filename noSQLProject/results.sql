@@ -1,2 +1,2 @@
-SELECT e.*
-FROM EMP e;
+SELECT a.*
+FROM emp e;
