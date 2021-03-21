@@ -1,3 +1,5 @@
-foreach e in emp create_tuple 
-select_if e.chien == "chien" 
-output a
+foreach e in EMP 
+foreach d in DEPT create_tuple 
+select_if e.e == "chien" 
+output e.empno
+per e.empno

@@ -129,6 +129,24 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         */
     }
 	
+	@Override public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
+		String str = new String("GROUP BY");
+		for(NoSQLParser.AttributeContext ctxAttr : ctx.listattr().attribute()) {
+			str += " ";
+			if (ctxAttr.variable() == null) {
+				str += ctxAttr.SQL_WORD()+".*";
+			}
+			else {
+				str += ctxAttr.variable().SQL_WORD()+"."+ctxAttr.SQL_WORD();
+			}
+			str += ",";
+		}
+		str = str.substring(0, str.length()-1);
+
+		
+		sqlFragements.put("GROUP BY", str);
+	}
+	
 	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
 		System.out.println("Entering output");
 		
@@ -137,21 +155,26 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	}
 
 	@Override public void exitOutput(@NotNull NoSQLParser.OutputContext ctx) { 
-		String str = new String("SELECT ");
+		String str = new String("SELECT");
 		
-		if (ctx.variable() != null) {
-			str += ctx.variable().getText() + ".*";
+		if (ctx.variable() == null) {
+			
+			for(NoSQLParser.AttributeContext ctxAttr : ctx.listattr().attribute()) {
+				str += " ";
+				if (ctxAttr.variable() == null) {
+					str += ctxAttr.SQL_WORD()+".*";
+				}
+				else {
+					str += ctxAttr.variable().SQL_WORD()+"."+ctxAttr.SQL_WORD();
+				}
+				str += ",";
+			}
+			str = str.substring(0, str.length()-1);
 		}
 		
-		if (ctx.listattr() != null) {
-			str += ctx.listattr().getText() + " ";
+		else {
+			str += " "+ctx.variable().getText() + ".*";
 		}
-		
-//		System.out.println(str);
-//		System.out.println(ctx.getChild(0));
-//		System.out.println(ctx.getChild(1).getText());
-//		System.out.println(ctx.variable().getText());
-//		System.out.println(ctx.listattr());
 		
 		sqlFragements.put("SELECT", str);
 		System.out.println("Exiting output");

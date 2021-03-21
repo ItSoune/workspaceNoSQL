@@ -1,10 +1,10 @@
 grammar NoSQL;
 //parser rules
 //compilationUnit : ( variable | output ) EOF; //root rule - globally code consist only of variables and prints (see definition below)
-//expression : listit CREATE_TUPLE block output group+ order+ export+ EOF; // real
+//expression : listit block output group+ order+ export+ EOF; // real
 //listattr : attribute | attribute listattr;
 start: expression* EOF;
-expression : listit block output ;
+expression : listit block output (group)+;
 variable : SQL_WORD;
 relation : SQL_WORD;
 attribute: SQL_WORD
@@ -27,15 +27,12 @@ logical : comparaison;
 data: INT | FLOAT | STRING ;
 comparaison: attribute OPERATOR data | attribute OPERATOR attribute | data OPERATOR attribute; 
 output : OUTPUT (variable | listattr);
-
 /*
-
 logical : jointure | comparaison; // real
 jointure : relation PAROUVR listmatch listagrega PARFERM;
 listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
 listagrega : attribute AS attribute | attribute AS attribute listmatch; 
 */
-
 group : PER listattr;
 order : ORDER_BY listattr (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN attribute));
 export : INTO_TABLE relation;

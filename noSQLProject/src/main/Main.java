@@ -34,11 +34,13 @@ public class Main {
     	Set<String> s = map.keySet();
     	String str_return = new String();
     	if (s.contains("SELECT"))
-    		str_return += map.get("SELECT")+"\n";
+    		str_return += map.get("SELECT") + "\n";
     	if (s.contains("FROM"))
-    		str_return += map.get("FROM");
+    		str_return += map.get("FROM") + "\n";
     	if (s.contains("WHERE"))
-    		str_return += map.get("WHERE");
+    		str_return += map.get("WHERE") + "\n";
+    	if (s.contains("GROUP BY"))
+    		str_return += map.get("GROUP BY");
     	printToFile(str_return+";");
 	}
 	
