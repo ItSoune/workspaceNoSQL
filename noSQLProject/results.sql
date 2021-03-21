@@ -1,1 +1,2 @@
-SELECT a,b,c FROM Joker a, Chien b
+SELECT e.*
+FROM EMP e;

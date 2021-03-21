@@ -102,6 +102,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
     }
 	
 	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
+		System.out.println("Entering output");
 		
 		
 		
@@ -111,7 +112,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		String str = new String("SELECT ");
 		
 		if (ctx.variable() != null) {
-			str += ctx.variable().getText() + " ";
+			str += ctx.variable().getText() + ".*";
 		}
 		
 		if (ctx.listattr() != null) {
@@ -125,6 +126,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 //		System.out.println(ctx.listattr());
 		
 		sqlFragements.put("SELECT", str);
+		System.out.println("Exiting output");
 	}
 	
 }

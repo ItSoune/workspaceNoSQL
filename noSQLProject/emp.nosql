@@ -1,0 +1,1 @@
+foreach e in EMP create_tuple output e

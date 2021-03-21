@@ -1,13 +1,9 @@
 package main;
 
-import java.awt.List;
-import java.io.BufferedWriter;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,12 +34,12 @@ public class Main {
     	Set<String> s = map.keySet();
     	String str_return = new String();
     	if (s.contains("SELECT"))
-    		str_return += map.get("SELECT");
+    		str_return += map.get("SELECT")+"\n";
     	if (s.contains("FROM"))
     		str_return += map.get("FROM");
     	if (s.contains("WHERE"))
     		str_return += map.get("WHERE");
-    	printToFile(str_return);
+    	printToFile(str_return+";");
 	}
 	
 	
