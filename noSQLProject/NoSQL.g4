@@ -26,7 +26,7 @@ condition : logical
 logical : comparaison;
 data: INT | FLOAT | STRING ;
 comparaison: attribute OPERATOR data | attribute OPERATOR attribute | data OPERATOR attribute; 
-output : OUTPUT (listattr | variable);
+output : OUTPUT (variable | listattr);
 
 /*
 
@@ -34,13 +34,13 @@ logical : jointure | comparaison; // real
 jointure : relation PAROUVR listmatch listagrega PARFERM;
 listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
 listagrega : attribute AS attribute | attribute AS attribute listmatch; 
-
+*/
 
 
 group : PER listattr;
 order : ORDER_BY listattr (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN attribute));
 export : INTO_TABLE relation;
-*/
+
 
 //lexer rules (tokens)
 
@@ -60,14 +60,14 @@ OUTPUT : 'output';
 COMMA: ',';
 
 
-/*
+
 PER : 'per';
 ORDER_BY : 'order_by';
 FETCH_FIRST_ROWS : 'fetch_first_rows';
 WITH_SAME : 'with_same';
 WITHIN : 'within';
 INTO_TABLE : 'into_table';
-*/
+
 
 fragment PARENTHESIS: '"' | '\'';
 fragment NUMERIC: '0'..'9';

@@ -60,8 +60,5 @@ public class Main {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-    	
-    	
 	}
-
 }

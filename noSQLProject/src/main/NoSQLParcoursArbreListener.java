@@ -11,11 +11,11 @@ import generated.NoSQLParser.IterationContext;
 public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
     Map<String, String> sqlFragements = new HashMap<String, String>();
-    //Map<String, Variable> variables = new HashMap<>();
 
     public Map<String, String> getInstructions() {
         return sqlFragements;
     }
+    
 	public void enterExpression(NoSQLParser.ExpressionContext ctx) {
 		System.out.println("Start processing expression");
 	}
@@ -65,7 +65,6 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	@Override 
 	public void enterVariable(@NotNull NoSQLParser.VariableContext ctx) {
 		System.out.println("Entering Var");
-		
 	}
 	
 	@Override 
