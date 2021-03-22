@@ -1,10 +1,10 @@
 grammar NoSQL;
 //parser rules
 //compilationUnit : ( variable | output ) EOF; //root rule - globally code consist only of variables and prints (see definition below)
-//expression : listit block output group+ order+ export+ EOF; // real
+//expression : listit block output group? order? export? EOF; // real
 //listattr : attribute | attribute listattr;
 start: expression* EOF;
-expression : listit block output (group)+;
+expression : listit block output group?;
 variable : SQL_WORD;
 relation : SQL_WORD;
 attribute: SQL_WORD
@@ -20,10 +20,11 @@ selection : SELECT_IF condition;
 listexcl : exclusion+;
 exclusion : EXCLUDE_IF condition;
 
-condition : logical 
-          | (logical AND)+ logical
-          | (logical OR)+ logical;
+condition : (logicaland OR)* logicaland;
+logicaland : (logical AND)* logical; // modifications
+
 logical : comparaison;
+
 data: INT | FLOAT | STRING ;
 comparaison: attribute OPERATOR data | attribute OPERATOR attribute | data OPERATOR attribute; 
 output : OUTPUT (variable | listattr);
@@ -65,16 +66,15 @@ WITHIN : 'within';
 INTO_TABLE : 'into_table';
 
 
-fragment PARENTHESIS: '"' | '\'';
 fragment NUMERIC: '0'..'9';
 fragment LETTER: ('a'..'z' | 'A'..'Z');
-fragment CHAR: . ;
 
 SQL_WORD : LETTER (LETTER | '_' | NUMERIC)*;
 
 OPERATOR : '==' | '<' | '>' | '<=' | '>=' | '!=';
 
-STRING : PARENTHESIS CHAR* PARENTHESIS ;   //must be anything in quotes
+STRING : '"' ~["]* '"' 
+	   | '\'' ~[']* '\'';   //must be anything in quotes
 FLOAT : '-'? NUMERIC+ '.' NUMERIC+;
 
 INT : '-'? NUMERIC+;

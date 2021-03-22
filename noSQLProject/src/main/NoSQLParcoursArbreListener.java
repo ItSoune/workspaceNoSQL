@@ -104,7 +104,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         String resultat = new String(); // requête traduite en sql
 
 
-        ComparaisonContext comparaison  = ctx.condition().logical(0).comparaison(); // on avance dans l'arbre
+        ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on avance dans l'arbre
 
 
         System.out.println("------------------" + comparaison.attribute(2));
