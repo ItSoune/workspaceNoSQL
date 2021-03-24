@@ -14,7 +14,7 @@ table_identifier: variable | relation;
 column_identifier: table_identifier POINT column
 				 | column;
 /*aggregation : AGGREGAT PAROUVR column_identifier PARFERM
-			| column_identifier;*/
+			  | column_identifier;*/
 
 /*column: (variable POINT SQL_WORD)
 	  | INT;*/
