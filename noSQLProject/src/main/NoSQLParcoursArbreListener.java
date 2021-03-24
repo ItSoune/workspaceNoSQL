@@ -6,8 +6,8 @@ import org.antlr.v4.runtime.misc.NotNull;
 
 import generated.NoSQLBaseListener;
 import generated.NoSQLParser;
-import generated.NoSQLParser.ComparaisonContext;
-import generated.NoSQLParser.IterationContext;
+import generated.NoSQLParser.*;
+
 
 public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
@@ -107,7 +107,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on avance dans l'arbre
 
 
-        System.out.println("------------------" + comparaison.attribute(2));
+        /*System.out.println("------------------" + comparaison.attribute(2));
         if(comparaison.data()!=null) {
             System.out.println("yoyo");
         }
@@ -130,21 +130,21 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
     }
 	
 	@Override public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
-		String str = new String("GROUP BY");
-		for(NoSQLParser.AttributeContext ctxAttr : ctx.listattr().attribute()) {
+		/*String str = new String("GROUP BY");
+		for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
 			str += " ";
-			if (ctxAttr.variable() == null) {
-				str += ctxAttr.SQL_WORD()+".*";
+			if (ctxColid.table_identifier() == null) {
+				str += ctxColid.column().SQL_WORD()+".*";
 			}
 			else {
-				str += ctxAttr.variable().SQL_WORD()+"."+ctxAttr.SQL_WORD();
+				str += ctxColid.column().SQL_WORD()+"."+ctxColid.SQL_WORD();
 			}
 			str += ",";
 		}
 		str = str.substring(0, str.length()-1);
 
 		
-		sqlFragements.put("GROUP BY", str);
+		sqlFragements.put("GROUP BY", str);*/
 	}
 	
 	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
@@ -156,16 +156,14 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
 	@Override public void exitOutput(@NotNull NoSQLParser.OutputContext ctx) { 
 		String str = new String("SELECT");
-		
 		if (ctx.variable() == null) {
-			
-			for(NoSQLParser.AttributeContext ctxAttr : ctx.listattr().attribute()) {
+			for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
 				str += " ";
-				if (ctxAttr.variable() == null) {
-					str += ctxAttr.SQL_WORD()+".*";
+				if (ctxColid.table_identifier() == null) {
+					str += ctxColid.column().SQL_WORD()+".*";
 				}
 				else {
-					str += ctxAttr.variable().SQL_WORD()+"."+ctxAttr.SQL_WORD();
+					str += ctxColid.table_identifier().getChild(0).getText()+"."+ctxColid.column().SQL_WORD();
 				}
 				str += ",";
 			}
@@ -182,28 +180,8 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	
 	@Override
 	public void exitOrder(@NotNull NoSQLParser.OrderContext ctx) {
-		String str = new String("ORDER BY");
+		/*String str = new String("ORDER BY");
 		
-		/*if (ctx.list() == null) {
-			
-			for(NoSQLParser.AttributeContext ctxAttr : ctx.listattr().attribute()) {
-				str += " ";
-				if (ctxAttr.variable() == null) {
-					str += ctxAttr.SQL_WORD()+".*";
-				}
-				else {
-					str += ctxAttr.variable().SQL_WORD()+"."+ctxAttr.SQL_WORD();
-				}
-				str += ",";
-			}
-			str = str.substring(0, str.length()-1);
-		}
-		
-		else {
-			str += " "+ctx.variable().getText() + ".*";
-		}
-		
-		sqlFragements.put("SELECT", str);*/
 		for(NoSQLParser.ColumnContext ctxCol : ctx.column()) {
 			str += " ";
 			if (ctxCol.INT() == null) {
@@ -216,6 +194,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		}
 		str = str.substring(0, str.length()-1);
 		sqlFragements.put("ORDER BY", str);
+		*/
 
 	}
 
