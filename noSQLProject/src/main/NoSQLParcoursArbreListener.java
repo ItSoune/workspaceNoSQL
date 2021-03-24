@@ -134,21 +134,26 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
     }
 	
 	@Override public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
-		/*String str = new String("GROUP BY");
+		String str = new String("GROUP BY");
+		System.out.println("************************************");
 		for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
 			str += " ";
 			if (ctxColid.table_identifier() == null) {
-				str += ctxColid.column().SQL_WORD()+".*";
+				//str += ctxColid.column().SQL_WORD()+".*";
+				str +=ctxColid.column().getText()+".*";
 			}
 			else {
-				str += ctxColid.column().SQL_WORD()+"."+ctxColid.SQL_WORD();
+				//str += ctxColid.column().SQL_WORD()+"."+ctxColid.table_identifier().getText();
+				str +=ctxColid.table_identifier().getText()+"."+ctxColid.column().getText();
+
 			}
 			str += ",";
 		}
 		str = str.substring(0, str.length()-1);
 
 		
-		sqlFragements.put("GROUP BY", str);*/
+		sqlFragements.put("GROUP BY", str);
+		
 	}
 	
 	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
