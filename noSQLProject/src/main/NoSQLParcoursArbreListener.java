@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import generated.NoSQLBaseListener;
 import generated.NoSQLParser;
 import generated.NoSQLParser.*;
+import utils.Equivalence;
 
 
 public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
@@ -106,18 +107,21 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
         ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on avance dans l'arbre
 
-
-        /*System.out.println("------------------" + comparaison.attribute(2));
-        if(comparaison.data()!=null) {
-            System.out.println("yoyo");
-        }
-        else {
-            System.out.println(comparaison.attribute());
-        }
-        /*
-        colonne += comparaison.attribute().get(0).SQL_WORD();
-
-        operator += comparaison.OPERATOR();
+/*
+       
+        
+        
+        colonne += comparaison.column_identifier(0).column().SQL_WORD();
+        //String col1 = comparaison.column_identifier(0).table_identifier().getText();
+        //String col2 = comparaison.column_identifier(0).column().getText();
+        //colonne = col1 + "." + col2;
+        
+        if (comparaison.column_identifier(0).table_identifier() == null)
+        	System.out.println("--------------" + comparaison.column_identifier(0).table_identifier());
+        	//System.out.println("---------------------------huefgfu");
+        	//System.out.println("--------------" + comparaison.column_identifier(0).table_identifier());
+        
+        operator += Equivalence.operator(comparaison.OPERATOR().getText());
 
         data += comparaison.data().STRING();
         data = "'" + data.substring(1, data.length()-1) + "'"; // pour enlever les guillemets et mettre des apostrophes
@@ -126,7 +130,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         resultat = "WHERE" +" "+ colonne +" "+ operator +" "+ data;
 
         System.out.println("---resultat--- "+resultat);
-        */
+        
     }
 	
 	@Override public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
