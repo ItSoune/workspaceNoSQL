@@ -95,20 +95,47 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	@Override 
     public void exitSelection(@NotNull SelectionContext ctx) {
 
-        //System.out.println("coucou " + ctx.SELECT_IF().getParent().getChild(1).getText());
-        //System.out.println("hellooo" );
-
-
-        String colonne = new String();
+        
+        String arg1 = new String(); // arg1 et arg2 peuvent être une data ou une table_identifier     
+        String arg2 = new String();
         String operator = new String();
-        String data = new String();
-        String resultat = new String(); // requête traduite en sql
+        String resultat = new String(); // résultat de la requête traduite en sql
 
 
-        ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on avance dans l'arbre
+        ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on parcours l'arbre
+        //System.out.println(comparaison.column_identifier(0).getText());
+        
+        System.out.println(comparaison.getChild(0) == comparaison.column_identifier(0));
+        
+        if (comparaison.data() == null) { // est de forme column_identifier OPERATOR column_identifier
+        	//System.out.println("c o c");
+        	arg1 = comparaison.column_identifier(0).getText();
+        	arg2 = comparaison.column_identifier(0).getText();
+        	operator = comparaison.OPERATOR().getText();
+        	
+        }
+        else if (comparaison.getChild(0) == comparaison.column_identifier(0)) { // est de forme column_identifier OPERATOR data
+        	//System.out.println("c o d");
+        	arg1 = comparaison.column_identifier(0).getText();
+        	arg2 = comparaison.data().getText();
+        	arg2 = Equivalence.changeDoubleQuote(arg2);
+        	operator = comparaison.OPERATOR().getText();
+        }
+        else { // est de forme data OPERATOR column_identifier
+        	//System.out.println("d o c");
+        	arg1 = comparaison.column_identifier(0).getText();
+        	arg2 = comparaison.data().getText();
+        	arg2 = Equivalence.changeDoubleQuote(arg2);
+        	operator = comparaison.OPERATOR().getText();
+        	operator = Equivalence.inverseOperator(operator);
 
-
-/*    
+        }
+        
+        resultat = "WHERE" +" "+ arg1 +" "+ operator +" "+ arg2;
+        
+        System.out.println(resultat);
+        
+/*       
         
         colonne += comparaison.column_identifier(0).column().SQL_WORD();
         //String col1 = comparaison.column_identifier(0).table_identifier().getText();
@@ -126,7 +153,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         data = "'" + data.substring(1, data.length()-1) + "'"; // pour enlever les guillemets et mettre des apostrophes
         System.out.println(data);
 
-        resultat = "WHERE" +" "+ colonne +" "+ operator +" "+ data;
+        
 
         System.out.println("---resultat--- "+resultat);
         
