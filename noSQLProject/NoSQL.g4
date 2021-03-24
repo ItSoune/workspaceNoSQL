@@ -57,7 +57,7 @@ MIN : 'min';
 DISTINCT : 'distinct';
 AVG : 'avg';
 COUNT : 'count';
-AGGREGAT : MAX | MIN | DISTINCT | AVG | COUNT;
+AGGREGAT : MAX | MIN | AVG | COUNT;
 FOREACH : 'foreach';
 IN : 'in';
 CREATE_TUPLE : 'create_tuple';
