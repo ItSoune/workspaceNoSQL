@@ -8,6 +8,7 @@ expression : listit block output group? order?;
 variable : SQL_WORD;
 relation : SQL_WORD;
 column : SQL_WORD;
+column_num : INT;
 
 table_identifier: variable | relation;
 column_identifier: table_identifier POINT column
@@ -19,6 +20,7 @@ column_identifier: table_identifier POINT column
 	  | INT;*/
 
 listattr : (column_identifier COMMA)* column_identifier;
+listcolumn : ((column_identifier | column_num) COMMA)* (column_identifier | column_num);
 
 iteration : FOREACH variable IN relation;
 listit : iteration+ CREATE_TUPLE;
@@ -43,7 +45,7 @@ listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
 listagrega : attribute AS attribute | attribute AS attribute listmatch; 
 */
 group : PER listattr;
-order : ORDER_BY (column COMMA)* column (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN column_identifier))?;
+order : ORDER_BY listcolumn (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN PERCENTAGE PERCENTAGE_SIGN column_identifier))?;
 export : INTO_TABLE relation;
 
 
@@ -83,8 +85,8 @@ INTO_TABLE : 'into_table';
 
 fragment NUMERIC: '0'..'9';
 fragment LETTER: ('a'..'z' | 'A'..'Z');
-PECENT : NUMERIC NUMERIC?;
-PERCENTAGE : '%';
+PERCENTAGE : NUMERIC NUMERIC?;
+PERCENTAGE_SIGN : '%';
 
 SQL_WORD : LETTER (LETTER | '_' | NUMERIC)*;
 
