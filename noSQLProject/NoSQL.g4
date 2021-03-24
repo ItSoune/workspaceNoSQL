@@ -1,19 +1,27 @@
 grammar NoSQL;
 //parser rules
-//compilationUnit : ( variable | output ) EOF; //root rule - globally code consist only of variables and prints (see definition below)
-//expression : listit block output group? order? export? EOF; // real
+//expression : aggregate? listit block output group? order? export? EOF; // real
 //listattr : attribute | attribute listattr;
 start: expression* EOF;
-expression : listit block output group?;
+expression : listit block output group? order?;
+
 variable : SQL_WORD;
 relation : SQL_WORD;
-attribute: SQL_WORD
-         | variable POINT SQL_WORD;
-listattr : (attribute COMMA)* attribute;
+column : SQL_WORD;
+
+table_identifier: variable | relation;
+column_identifier: table_identifier POINT column
+				 | column;
+/*aggregation : AGGREGAT PAROUVR column_identifier PARFERM
+			| column_identifier;*/
+
+/*column: (variable POINT SQL_WORD)
+	  | INT;*/
+
+listattr : (column_identifier COMMA)* column_identifier;
 
 iteration : FOREACH variable IN relation;
 listit : iteration+ CREATE_TUPLE;
-
 block : selection listexcl?
       | listexcl;
 selection : SELECT_IF condition;
@@ -26,7 +34,7 @@ logicaland : (logical AND)* logical; // modifications
 logical : comparaison;
 
 data: INT | FLOAT | STRING ;
-comparaison: attribute OPERATOR data | attribute OPERATOR attribute | data OPERATOR attribute; 
+comparaison: column_identifier OPERATOR data | column_identifier OPERATOR column_identifier | data OPERATOR column_identifier; 
 output : OUTPUT (variable | listattr);
 /*
 logical : jointure | comparaison; // real
@@ -35,12 +43,19 @@ listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
 listagrega : attribute AS attribute | attribute AS attribute listmatch; 
 */
 group : PER listattr;
-order : ORDER_BY listattr (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN attribute));
+order : ORDER_BY (column COMMA)* column (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN column_identifier))?;
 export : INTO_TABLE relation;
 
 
 //lexer rules (tokens)
 
+
+MAX : 'max';
+MIN : 'min';
+DISTINCT : 'distinct';
+AVG : 'avg';
+COUNT : 'count';
+AGGREGAT : MAX | MIN | DISTINCT | AVG | COUNT;
 FOREACH : 'foreach';
 IN : 'in';
 CREATE_TUPLE : 'create_tuple';
@@ -68,6 +83,8 @@ INTO_TABLE : 'into_table';
 
 fragment NUMERIC: '0'..'9';
 fragment LETTER: ('a'..'z' | 'A'..'Z');
+PECENT : NUMERIC NUMERIC?;
+PERCENTAGE : '%';
 
 SQL_WORD : LETTER (LETTER | '_' | NUMERIC)*;
 

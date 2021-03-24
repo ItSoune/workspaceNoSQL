@@ -3,3 +3,4 @@ foreach d in DEPT create_tuple
 select_if e.e == "chien" 
 output e.empno
 per e.empno
+order_by 1, e.empno, 7
