@@ -29,18 +29,13 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	@Override 
 	public void exitListit(@NotNull ListitContext ctx) {
 		
-		/*System.out.println(ctx.iteration(0).hashCode());
-		System.out.println(ctx.iteration(0));
-		System.out.println(ctx.iteration(1).getStart());
-		System.out.println(ctx.iteration(1).getStop());
-		System.out.println(ctx.iteration(1).getRuleIndex());
-		System.out.println(ctx.iteration(1).depth());*/
+
 		String str = new String("FROM");
 		
 		int i = 0;
 		while (ctx.iteration(i) != null) {
 			IterationContext itCtx = ctx.iteration(i);
-			str += " "+itCtx.getChild(3).getText()+" " + itCtx.getChild(1).getText()+",";
+			str += " "+itCtx.getChild(3).getText()+" "+itCtx.getChild(1).getText()+",";
 			i++;
 		}
 		str = str.substring(0, str.length()-1);
@@ -157,6 +152,9 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	@Override 
 	public void exitOutput(@NotNull OutputContext ctx) { 
 		String str = new String("SELECT");
+		if (ctx.DISTINCT() != null) {
+			str += " DISTINCT";
+		}
 		if (ctx.variable() == null) {
 			for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
 				str += " ";
