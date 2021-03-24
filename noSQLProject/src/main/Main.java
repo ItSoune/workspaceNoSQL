@@ -40,7 +40,9 @@ public class Main {
     	if (s.contains("WHERE"))
     		str_return += map.get("WHERE") + "\n";
     	if (s.contains("GROUP BY"))
-    		str_return += map.get("GROUP BY");
+    		str_return += map.get("GROUP BY")+ "\n";
+    	if (s.contains("ORDER BY"))
+    		str_return += map.get("ORDER BY");
     	printToFile(str_return+";");
 	}
 	

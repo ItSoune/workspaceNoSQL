@@ -180,4 +180,44 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		System.out.println("Exiting output");
 	}
 	
+	@Override
+	public void exitOrder(@NotNull NoSQLParser.OrderContext ctx) {
+		String str = new String("ORDER BY");
+		
+		/*if (ctx.list() == null) {
+			
+			for(NoSQLParser.AttributeContext ctxAttr : ctx.listattr().attribute()) {
+				str += " ";
+				if (ctxAttr.variable() == null) {
+					str += ctxAttr.SQL_WORD()+".*";
+				}
+				else {
+					str += ctxAttr.variable().SQL_WORD()+"."+ctxAttr.SQL_WORD();
+				}
+				str += ",";
+			}
+			str = str.substring(0, str.length()-1);
+		}
+		
+		else {
+			str += " "+ctx.variable().getText() + ".*";
+		}
+		
+		sqlFragements.put("SELECT", str);*/
+		for(NoSQLParser.ColumnContext ctxCol : ctx.column()) {
+			str += " ";
+			if (ctxCol.INT() == null) {
+				str += ctxCol.variable().SQL_WORD()+"."+ctxCol.SQL_WORD();
+			}
+			else {
+				str +=ctxCol.INT();
+			}
+			str +=",";
+		}
+		str = str.substring(0, str.length()-1);
+		sqlFragements.put("ORDER BY", str);
+
+	}
+
+	
 }

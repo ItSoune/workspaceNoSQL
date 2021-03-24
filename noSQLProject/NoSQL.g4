@@ -4,11 +4,13 @@ grammar NoSQL;
 //expression : listit block output group? order? export? EOF; // real
 //listattr : attribute | attribute listattr;
 start: expression* EOF;
-expression : listit block output group?;
+expression : listit block output group? order?;
 variable : SQL_WORD;
 relation : SQL_WORD;
 attribute: SQL_WORD
          | variable POINT SQL_WORD;
+column: (variable POINT SQL_WORD)
+	  | INT;
 listattr : (attribute COMMA)* attribute;
 
 iteration : FOREACH variable IN relation;
@@ -35,7 +37,7 @@ listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
 listagrega : attribute AS attribute | attribute AS attribute listmatch; 
 */
 group : PER listattr;
-order : ORDER_BY listattr (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN attribute));
+order : ORDER_BY (column COMMA)* column (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN attribute))?;
 export : INTO_TABLE relation;
 
 
