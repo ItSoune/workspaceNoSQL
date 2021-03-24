@@ -18,16 +18,16 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         return sqlFragements;
     }
     
-	public void enterExpression(NoSQLParser.ExpressionContext ctx) {
-		System.out.println("Start processing expression");
+	public void enterExpression(ExpressionContext ctx) {
+		//System.out.println("Start processing expression");
 	}
 
-	public void enterListit (NoSQLParser.ListitContext ctx) {
-		System.out.println("Entering ListIt");
+	public void enterListit (ListitContext ctx) {
+		//System.out.println("Entering ListIt");
 	}
 	
 	@Override 
-	public void exitListit(@NotNull NoSQLParser.ListitContext ctx) {
+	public void exitListit(@NotNull ListitContext ctx) {
 		
 		/*System.out.println(ctx.iteration(0).hashCode());
 		System.out.println(ctx.iteration(0));
@@ -47,53 +47,53 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		System.out.println(str);
 		
 		sqlFragements.put("FROM", str);
-		System.out.println("Exiting ListIt");
+		//System.out.println("Exiting ListIt");
 	}
 	
 	@Override 
-	public void enterIteration(@NotNull NoSQLParser.IterationContext ctx) {
-		System.out.println("Entering Iter");
+	public void enterIteration(@NotNull IterationContext ctx) {
+		//System.out.println("Entering Iter");
 		//System.out.println(ctx.hashCode());
 		
 	}
 	
 	@Override 
-	public void exitIteration(@NotNull NoSQLParser.IterationContext ctx) {
+	public void exitIteration(@NotNull IterationContext ctx) {
 		
 		//System.out.println(ctx.hashCode());
-		System.out.println("Exiting Iter");
+		//System.out.println("Exiting Iter");
 	}
 	
 	@Override 
-	public void enterVariable(@NotNull NoSQLParser.VariableContext ctx) {
-		System.out.println("Entering Var");
+	public void enterVariable(@NotNull VariableContext ctx) {
+		//System.out.println("Entering Var");
 	}
 	
 	@Override 
-	public void exitVariable(@NotNull NoSQLParser.VariableContext ctx) {
-		System.out.println(ctx.SQL_WORD());
-		System.out.println("Exiting Var");
+	public void exitVariable(@NotNull VariableContext ctx) {
+		//System.out.println(ctx.SQL_WORD());
+		//System.out.println("Exiting Var");
 	}
 	
 	@Override 
-	public void enterRelation(@NotNull NoSQLParser.RelationContext ctx) {
-		System.out.println("Entering Rel");
+	public void enterRelation(@NotNull RelationContext ctx) {
+		//System.out.println("Entering Rel");
 		
 	}
 	
 	@Override 
-	public void exitRelation(@NotNull NoSQLParser.RelationContext ctx) {
-		System.out.println(ctx.SQL_WORD());
-		System.out.println("Exiting Rel");
+	public void exitRelation(@NotNull RelationContext ctx) {
+		//System.out.println(ctx.SQL_WORD());
+		//System.out.println("Exiting Rel");
 	}
 	
 	@Override 
-    public void enterSelection(@NotNull NoSQLParser.SelectionContext ctx) {
+    public void enterSelection(@NotNull SelectionContext ctx) {
 
     }
 
 	@Override 
-    public void exitSelection(@NotNull NoSQLParser.SelectionContext ctx) {
+    public void exitSelection(@NotNull SelectionContext ctx) {
 
         //System.out.println("coucou " + ctx.SELECT_IF().getParent().getChild(1).getText());
         //System.out.println("hellooo" );
@@ -108,9 +108,8 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on avance dans l'arbre
 
 
-       
+/*    
         
-        System.out.println(comparaison.column_identifier(0).getText());
         colonne += comparaison.column_identifier(0).column().SQL_WORD();
         //String col1 = comparaison.column_identifier(0).table_identifier().getText();
         //String col2 = comparaison.column_identifier(0).column().getText();
@@ -133,7 +132,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         
     }
 	
-	@Override public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
+	@Override public void exitGroup(@NotNull GroupContext ctx) {
 		/*String str = new String("GROUP BY");
 		for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
 			str += " ";
@@ -151,11 +150,12 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		sqlFragements.put("GROUP BY", str);*/
 	}
 	
-	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
-		System.out.println("Entering output");
+	@Override public void enterOutput(@NotNull OutputContext ctx) {
+		//System.out.println("Entering output");
 	}
 
-	@Override public void exitOutput(@NotNull NoSQLParser.OutputContext ctx) { 
+	@Override 
+	public void exitOutput(@NotNull OutputContext ctx) { 
 		String str = new String("SELECT");
 		if (ctx.variable() == null) {
 			for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
@@ -176,11 +176,11 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		}
 		
 		sqlFragements.put("SELECT", str);
-		System.out.println("Exiting output");
+		//System.out.println("Exiting output");
 	}
 	
 	@Override
-	public void exitOrder(@NotNull NoSQLParser.OrderContext ctx) {
+	public void exitOrder(@NotNull OrderContext ctx) {
 		/*String str = new String("ORDER BY");
 		
 		for(NoSQLParser.ColumnContext ctxCol : ctx.column()) {
