@@ -107,10 +107,10 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
         ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on avance dans l'arbre
 
-/*
+
        
         
-        
+        System.out.println(comparaison.column_identifier(0).getText());
         colonne += comparaison.column_identifier(0).column().SQL_WORD();
         //String col1 = comparaison.column_identifier(0).table_identifier().getText();
         //String col2 = comparaison.column_identifier(0).column().getText();
@@ -153,9 +153,6 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 	
 	@Override public void enterOutput(@NotNull NoSQLParser.OutputContext ctx) {
 		System.out.println("Entering output");
-		
-		
-		
 	}
 
 	@Override public void exitOutput(@NotNull NoSQLParser.OutputContext ctx) { 
