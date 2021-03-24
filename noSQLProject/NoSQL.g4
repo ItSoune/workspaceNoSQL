@@ -37,7 +37,7 @@ logical : comparaison;
 
 data: INT | FLOAT | STRING ;
 comparaison: column_identifier OPERATOR data | column_identifier OPERATOR column_identifier | data OPERATOR column_identifier; 
-output : OUTPUT (variable | listattr);
+output : DISTINCT? OUTPUT (variable | listattr);
 /*
 logical : jointure | comparaison; // real
 jointure : relation PAROUVR listmatch listagrega PARFERM;
