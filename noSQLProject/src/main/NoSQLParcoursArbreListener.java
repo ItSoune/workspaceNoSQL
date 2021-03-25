@@ -17,11 +17,11 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
     public Map<String, String> getInstructions() {
         return sqlFragements;
     }
-    
+    @Override
 	public void enterExpression(ExpressionContext ctx) {
 		//System.out.println("Start processing expression");
 	}
-
+	@Override
 	public void enterListit (ListitContext ctx) {
 		//System.out.println("Entering ListIt");
 	}
@@ -82,12 +82,12 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 		//System.out.println("Exiting Rel");
 	}
 	
-	@Override 
+	@Override
     public void enterSelection(@NotNull SelectionContext ctx) {
 
     }
 
-	@Override 
+	@Override
     public void exitSelection(@NotNull SelectionContext ctx) {
 
         
@@ -123,7 +123,6 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         	arg2 = Equivalence.changeDoubleQuote(arg2);
         	operator = comparaison.OPERATOR().getText();
         	operator = Equivalence.inverseOperator(operator);
-
         }
         
         resultat = "WHERE" +" "+ arg1 +" "+ operator +" "+ arg2;
@@ -154,10 +153,11 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         
     }*/
 	}
-	@Override public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
+	@Override 
+	public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {
 		String str = new String("GROUP BY");
 
-		for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
+		for(Column_identifierContext ctxColid : ctx.listper().column_identifier()) {
 			str += " ";
 			if (ctxColid.table_identifier() == null) {
 				str +=ctxColid.column().getText()+".*";
@@ -186,13 +186,19 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 			str += " DISTINCT";
 		}
 		if (ctx.variable() == null) {
-			for(Column_identifierContext ctxColid : ctx.listattr().column_identifier()) {
+			for(AggregationContext ctxAggr : ctx.listattr().aggregation()) {
 				str += " ";
-				if (ctxColid.table_identifier() == null) {
-					str += ctxColid.column().SQL_WORD()+".*";
+				if (ctxAggr.AGGREGAT() != null)	{			
+					if (ctxAggr.column_identifier().table_identifier() == null)
+						str += ctxAggr.AGGREGAT().getText().toUpperCase()+"("+ctxAggr.column_identifier().column().SQL_WORD()+".*"+")";
+					else
+						str += ctxAggr.AGGREGAT().getText().toUpperCase()+"("+ctxAggr.column_identifier().getText()+")";
 				}
 				else {
-					str += ctxColid.table_identifier().getChild(0).getText()+"."+ctxColid.column().SQL_WORD();
+					if (ctxAggr.column_identifier().table_identifier() == null)
+						str += ctxAggr.column_identifier().column().SQL_WORD()+".*";
+					else 
+						str += ctxAggr.column_identifier().getText();
 				}
 				str += ",";
 			}
@@ -215,8 +221,12 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 			str += " " + ctxColNum.INT() + ",";
 		}
 		
-		for(Column_identifierContext ctxColId : ctx.listcolumn().column_identifier()) {
-			str += " " + ctxColId.getText() + ",";
+		for(AggregationContext ctxAggr : ctx.listcolumn().aggregation()) {
+			if (ctxAggr.AGGREGAT() != null) {
+				str += " " + ctxAggr.AGGREGAT().getText().toUpperCase()+"("+ctxAggr.column_identifier().getText()+")"+",";
+			}
+			else 
+				str += " " + ctxAggr.column_identifier().getText() + ",";
 		}
 		str = str.substring(0, str.length()-1);
 		sqlFragements.put("ORDER BY", str);
