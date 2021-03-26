@@ -89,7 +89,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
 
 	@Override
     public void exitSelection(@NotNull SelectionContext ctx) {
-
+		
         
         String arg1 = new String(); // arg1 et arg2 peuvent être une data ou une table_identifier     
         String arg2 = new String();
@@ -126,7 +126,7 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         }
         
         resultat = "WHERE" +" "+ arg1 +" "+ operator +" "+ arg2;
-        
+        sqlFragements.put("WHERE", resultat);
         System.out.println(resultat);
         
 /*       

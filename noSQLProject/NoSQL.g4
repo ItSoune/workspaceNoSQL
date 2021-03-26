@@ -1,7 +1,6 @@
 grammar NoSQL;
 //parser rules
-//expression : aggregate? listit block output group? order? export? EOF; // real
-//listattr : attribute | attribute listattr;
+//expression : aggregate? listit block output group? order? export?; 
 start: expression* EOF;
 expression : listit block output group? order?;
 
@@ -15,9 +14,6 @@ column_identifier: table_identifier POINT column
 				 | column;
 aggregation : AGGREGAT PAROUVR column_identifier PARFERM
 			| column_identifier;
-
-/*column: (variable POINT SQL_WORD)
-	  | INT;*/
 
 listattr : (aggregation COMMA)* aggregation;
 listper : (column_identifier COMMA)* column_identifier;
@@ -48,7 +44,8 @@ listagrega : attribute AS attribute | attribute AS attribute listmatch;
 */
 group : PER listper;
 order : ORDER_BY listcolumn (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN PERCENTAGE PERCENTAGE_SIGN column_identifier))?;
-export : INTO_TABLE relation;
+
+//export : INTO_TABLE relation;
 
 
 //lexer rules (tokens)
