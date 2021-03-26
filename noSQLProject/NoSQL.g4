@@ -100,11 +100,3 @@ PERCENTAGE : NUMERIC NUMERIC?;
 PERCENTAGE_SIGN : '%';
 
 WHITESPACE : (' ' | '\t' | '\n' | '\r') -> skip;
-
-
-
-
-
-
-
-
