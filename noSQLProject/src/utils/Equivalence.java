@@ -33,5 +33,14 @@ public class Equivalence {
         default : return operator; 
 		}
 	}
+	
+	public static String appendRight (String str, int length, char c) {
+		length -= str.length();
+		System.out.println(length);
+		for(int i = 0; i<length; i++) {
+			str = c + str;
+		}
+		return str;
+	}
 
 }

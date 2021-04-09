@@ -1,13 +1,17 @@
 package main;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import generated.NoSQLBaseListener;
 import generated.NoSQLParser;
 import generated.NoSQLParser.*;
 import utils.Equivalence;
+
 
 
 public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
@@ -17,19 +21,19 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
     public Map<String, String> getInstructions() {
         return sqlFragements;
     }
+    
+    String date = new String();
+
     @Override
-	public void enterExpression(ExpressionContext ctx) {
-		//System.out.println("Start processing expression");
-	}
-	@Override
-	public void enterListit (ListitContext ctx) {
-		//System.out.println("Entering ListIt");
-	}
-	
+    public void exitDate(@NotNull DateContext ctx) {
+    	date += "TO_DATE('"+Equivalence.appendRight(ctx.INT(0).getText(), 2, '0')+"/"+Equivalence.appendRight(ctx.INT(1).getText(), 2, '0')+"/"+Equivalence.appendRight(ctx.INT(2).getText(), 2, '0')+"', 'DD/MM/YYYY')";
+    }
+    	
+    
+    
 	@Override 
 	public void exitListit(@NotNull ListitContext ctx) {
 		
-
 		String str = new String("FROM");
 		
 		int i = 0;
@@ -86,7 +90,8 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
     public void enterSelection(@NotNull SelectionContext ctx) {
 
     }
-
+	
+	
 	@Override
     public void exitSelection(@NotNull SelectionContext ctx) {
 		
@@ -95,63 +100,54 @@ public class NoSQLParcoursArbreListener extends NoSQLBaseListener {
         String arg2 = new String();
         String operator = new String();
         String resultat = new String(); // résultat de la requête traduite en sql
+        
 
 
-        ComparaisonContext comparaison  = ctx.condition().logicaland(0).logical(0).comparaison(); // on parcours l'arbre
-        //System.out.println(comparaison.column_identifier(0).getText());
-        
-        System.out.println(comparaison.getChild(0) == comparaison.column_identifier(0));
-        
-        if (comparaison.data() == null) { // est de forme column_identifier OPERATOR column_identifier
-        	//System.out.println("c o c");
-        	arg1 = comparaison.column_identifier(0).getText();
-        	arg2 = comparaison.column_identifier(0).getText();
-        	operator = comparaison.OPERATOR().getText();
+        resultat = "WHERE";
+        for(LogicalandContext logicalandctx : ctx.condition().logicaland()) {
+        	
+        	for(LogicalContext logicalctx : logicalandctx.logical()) {
+        		ComparaisonContext comparaison = logicalctx.comparaison();
+		        if (comparaison.data() == null) { // est de forme column_identifier OPERATOR column_identifier
+		        	//System.out.println("c o c");
+		        	arg1 = comparaison.column_identifier(0).getText();
+		        	arg2 = comparaison.column_identifier(1).getText();
+		        	operator = Equivalence.operator(comparaison.OPERATOR().getText());
+		        	
+		        }
+		        else if (comparaison.getChild(0) == comparaison.column_identifier(0)) { // est de forme column_identifier OPERATOR data
+		        	//System.out.println("c o d");
+		        	arg1 = comparaison.column_identifier(0).getText();
+		        	if (comparaison.data().date() != null)
+		        		arg2 = date;
+		        	else if (comparaison.data().STRING() != null)
+		        		arg2 = Equivalence.changeDoubleQuote(comparaison.data().STRING().getText());
+		        	else 
+		        		arg2 = comparaison.data().getText();
+		        	operator = Equivalence.operator(comparaison.OPERATOR().getText());
+		        }
+		        else { // est de forme data OPERATOR column_identifier
+		        	//System.out.println("d o c");
+		        	arg1 = comparaison.column_identifier(0).getText();
+		        	if (comparaison.data().date() != null)
+		        		arg2 = date;
+		        	else if (comparaison.data().STRING() != null)
+		        		arg2 = Equivalence.changeDoubleQuote(comparaison.data().STRING().getText());
+		        	else 
+		        		arg2 = comparaison.data().getText();
+		        	operator = comparaison.OPERATOR().getText();
+		        	operator = Equivalence.inverseOperator(Equivalence.operator(operator));
+		        }
+		        
+		        resultat += " "+ arg1 +" "+ operator +" "+ arg2 + " and";
+        	}
+        	resultat = resultat.substring(0, resultat.length()-4);
+        	resultat += " or";
         	
         }
-        else if (comparaison.getChild(0) == comparaison.column_identifier(0)) { // est de forme column_identifier OPERATOR data
-        	//System.out.println("c o d");
-        	arg1 = comparaison.column_identifier(0).getText();
-        	arg2 = comparaison.data().getText();
-        	arg2 = Equivalence.changeDoubleQuote(arg2);
-        	operator = comparaison.OPERATOR().getText();
-        }
-        else { // est de forme data OPERATOR column_identifier
-        	//System.out.println("d o c");
-        	arg1 = comparaison.column_identifier(0).getText();
-        	arg2 = comparaison.data().getText();
-        	arg2 = Equivalence.changeDoubleQuote(arg2);
-        	operator = comparaison.OPERATOR().getText();
-        	operator = Equivalence.inverseOperator(operator);
-        }
-        
-        resultat = "WHERE" +" "+ arg1 +" "+ operator +" "+ arg2;
+        resultat = resultat.substring(0, resultat.length()-3);
         sqlFragements.put("WHERE", resultat);
         System.out.println(resultat);
-        
-/*       
-        
-        colonne += comparaison.column_identifier(0).column().SQL_WORD();
-        //String col1 = comparaison.column_identifier(0).table_identifier().getText();
-        //String col2 = comparaison.column_identifier(0).column().getText();
-        //colonne = col1 + "." + col2;
-        
-        if (comparaison.column_identifier(0).table_identifier() == null)
-        	System.out.println("--------------" + comparaison.column_identifier(0).table_identifier());
-        	//System.out.println("---------------------------huefgfu");
-        	//System.out.println("--------------" + comparaison.column_identifier(0).table_identifier());
-        
-        operator += Equivalence.operator(comparaison.OPERATOR().getText());
-
-        data += comparaison.data().STRING();
-        data = "'" + data.substring(1, data.length()-1) + "'"; // pour enlever les guillemets et mettre des apostrophes
-        System.out.println(data);
-
-        
-
-        System.out.println("---resultat--- "+resultat);
-        
-    }*/
 	}
 	@Override 
 	public void exitGroup(@NotNull NoSQLParser.GroupContext ctx) {

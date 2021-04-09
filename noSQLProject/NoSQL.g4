@@ -2,7 +2,7 @@ grammar NoSQL;
 //parser rules
 //expression : aggregate? listit block output group? order? export?; 
 start: expression* EOF;
-expression : listit block output group? order?;
+expression : listit block? output group? order?;
 
 variable : SQL_WORD;
 relation : SQL_WORD;
@@ -12,7 +12,7 @@ column_num : INT;
 table_identifier: variable | relation;
 column_identifier: table_identifier POINT column
 				 | column;
-aggregation : AGGREGAT PAROUVR column_identifier PARFERM
+aggregation : AGGREGAT column_identifier 
 			| column_identifier;
 
 listattr : (aggregation COMMA)* aggregation;
@@ -26,22 +26,21 @@ block : selection listexcl?
 selection : SELECT_IF condition;
 listexcl : exclusion+;
 exclusion : EXCLUDE_IF condition;
-parenthesis : PARFERM | PAROUVR;
 
 condition : (logicaland OR)* logicaland;
 logicaland : (logical AND)* logical; // modifications
 
 logical : comparaison;
-
-data: INT | FLOAT | STRING;
+date: NEW DATE INT COMMA INT COMMA INT;
+data: INT | FLOAT | STRING | date;
 comparaison: column_identifier OPERATOR data | column_identifier OPERATOR column_identifier | data OPERATOR column_identifier; 
 output : DISTINCT? OUTPUT (variable | listattr);
-/*
-logical : jointure | comparaison; // real
+
+/*logical : jointure | comparaison; // real
 jointure : relation PAROUVR listmatch listagrega PARFERM;
 listmatch : attribute MATCHES attribute | attribute MATCHES attribute listmatch;
-listagrega : attribute AS attribute | attribute AS attribute listmatch; 
-*/
+listagrega : attribute AS attribute | attribute AS attribute listmatch; */
+
 group : PER listper;
 order : ORDER_BY listcolumn (FETCH_FIRST_ROWS (WITH_SAME listattr | WITHIN PERCENTAGE PERCENTAGE_SIGN column_identifier))?;
 
@@ -63,8 +62,6 @@ CREATE_TUPLE : 'create_tuple';
 SELECT_IF : 'select_if';
 POINT : '.';
 EXCLUDE_IF : 'exclude_if';
-PAROUVR : '(';
-PARFERM : ')';
 
 AND : 'and';
 OR : 'or';
@@ -72,7 +69,9 @@ AS : 'as';
 MATCHES : 'matches';
 OUTPUT : 'output';
 COMMA: ',';
+NEW: 'new';
 
+DATE: 'Date';
 
 
 PER : 'per';
@@ -99,4 +98,4 @@ INT : '-'? NUMERIC+;
 PERCENTAGE : NUMERIC NUMERIC?;
 PERCENTAGE_SIGN : '%';
 
-WHITESPACE : (' ' | '\t' | '\n' | '\r') -> skip;
+WHITESPACE : (' ' | '\t' | '\n' | '\r' | '(' | ')') -> skip;
